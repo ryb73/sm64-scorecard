@@ -23,5 +23,8 @@
   "devDependencies": {
     "bs-platform": "^7.3.2",
     "moduleserve": "^0.9.0"
+  },
+  "resolutions": {
+    "scorecard": "portal:/Users/ryan/Personal/proj/sm64/scorecard"
   }
 }

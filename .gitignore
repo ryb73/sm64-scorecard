@@ -6,6 +6,8 @@ npm-debug.log
 /node_modules/
 /bundleOutput/
 
+*.bs.js
+
 .yarn/*
 !.yarn/cache
 !.yarn/releases

@@ -1,5 +1,7 @@
-type level = {
-    stars: array(bool),
+type star = bool;
+
+type levelState = {
+    stars: (star, star, star, star, star, star),
     cannon: bool,
 
     // hundo and coins must be separate – hundo doesn't require finishing the level while coins does
@@ -14,22 +16,24 @@ type secrets =
      secret, secret, secret, secret, secret);
 
 type state = {
-    bob: level,
-    wf: level,
-    jrb: level,
-    ccm: level,
-    bbh: level,
-    hmc: level,
-    lll: level,
-    ssl: level,
-    ddd: level,
-    sl: level,
-    wdw: level,
-    ttm: level,
-    thi: level,
-    ttc: level,
-    rr: level,
+    levels: Belt.HashMap.t(Defs.level, levelState, int),
     secrets: secrets,
     noHat: bool,
     lives: int,
+};
+
+let initialLevel = {
+    stars: (false, false, false, false, false, false),
+    cannon: false,
+    hundo: false,
+    coins: 0,
+};
+
+let initial = {
+    levels: Belt.HashMap.fromArray(),
+    secrets:
+        (false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false),
+    noHat: false,
+    lives: 5,
 };

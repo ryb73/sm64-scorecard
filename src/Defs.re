@@ -5,7 +5,16 @@ type star = {
     boss: bool,
 };
 
-type level = {
+type level = Bob | Wf | Jrb | Ccm | Bbh | Hmc | Lll | Ssl | Ddd | Sl | Wdw | Ttm | Thi | Ttc | Rr;
+
+Js.log2("!!!",Hashtbl.hash(Bob));
+module LevelHashable = Belt.Id.MakeHashable({
+    type t = level;
+    let hash = Hashtbl.hash;
+    let eq = (===);
+});
+
+type levelDef = {
     name: string,
     stars: (star, star, star, star, star, star),
     hasCannon: bool,
@@ -23,21 +32,7 @@ type secrets =
      secret, secret, secret, secret, secret);
 
 type t = {
-    bob: level,
-    wf: level,
-    jrb: level,
-    ccm: level,
-    bbh: level,
-    hmc: level,
-    lll: level,
-    ssl: level,
-    ddd: level,
-    sl: level,
-    wdw: level,
-    ttm: level,
-    thi: level,
-    ttc: level,
-    rr: level,
+    levels: Belt.HashMap.t(level, levelDef, LevelHashable.identity),
     secrets: secrets,
 };
 
@@ -207,7 +202,7 @@ let ccm = {
             boss: false,
         },
     ),
-    hasCannon: false,
+    hasCannon: true,
 };
 let bbh = {
     name: "Big Boo's Haunt",
@@ -375,7 +370,7 @@ let ssl = {
             boss: false,
         },
     ),
-    hasCannon: false,
+    hasCannon: true,
 };
 let ddd = {
     name: "Dire, Dire Docks",
@@ -501,7 +496,7 @@ let wdw = {
             boss: false,
         },
     ),
-    hasCannon: false,
+    hasCannon: true,
 };
 let ttm = {
     name: "Tall, Tall Mountain",
@@ -543,7 +538,7 @@ let ttm = {
             boss: false,
         },
     ),
-    hasCannon: false,
+    hasCannon: true,
 };
 let thi = {
     name: "Tiny, Huge Island",
@@ -585,7 +580,7 @@ let thi = {
             boss: true,
         },
     ),
-    hasCannon: false,
+    hasCannon: true,
 };
 let ttc = {
     name: "Tick Tock Clock",
@@ -669,7 +664,7 @@ let rr = {
             boss: false,
         },
     ),
-    hasCannon: false,
+    hasCannon: true,
 };
 
 let secrets = (
@@ -691,5 +686,22 @@ let secrets = (
 );
 
 let defs = {
-    bob, wf, jrb, ccm, bbh, hmc, lll, ssl, ddd, sl, wdw, ttm, thi, ttc, rr, secrets,
+    levels: Belt.HashMap.fromArray([|
+        (Bob, bob),
+        (Wf, wf),
+        (Jrb, jrb),
+        (Ccm, ccm),
+        (Bbh, bbh),
+        (Hmc, hmc),
+        (Lll, lll),
+        (Ssl, ssl),
+        (Ddd, ddd),
+        (Sl, sl),
+        (Wdw, wdw),
+        (Ttm, ttm),
+        (Thi, thi),
+        (Ttc, ttc),
+        (Rr, rr),
+    |], ~id=(module LevelHashable)),
+    secrets,
 };
